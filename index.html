@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的私人漫画库</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+        }
+        .manga-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .manga-title {
+            margin: 0 0 10px 0;
+            font-size: 1.5em;
+            color: #34495e;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .manga-desc {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+        .volumes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+        }
+        .volume-btn {
+            display: inline-block;
+            text-align: center;
+            background-color: #3498db;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: background-color 0.2s;
+        }
+        .volume-btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📚 我的私人漫画库</h1>
+    <div id="manga-list"></div>
+
+    <script>
+        // 获取数据并渲染到页面上
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('manga-list');
+                
+                data.forEach(manga => {
+                    // 创建漫画卡片
+                    const card = document.createElement('div');
+                    card.className = 'manga-card';
+                    
+                    // 漫画标题和描述
+                    let htmlContent = `
+                        <h2 class="manga-title">${manga.title}</h2>
+                        <div class="manga-desc">${manga.description}</div>
+                        <div class="volumes-grid">
+                    `;
+                    
+                    // 循环生成每一卷的按钮
+                    manga.volumes.forEach(vol => {
+                        // target="_blank" 表示在新标签页中打开 PDF
+                        htmlContent += `<a href="${vol.url}" target="_blank" class="volume-btn">${vol.name}</a>`;
+                    });
+                    
+                    htmlContent += `</div>`;
+                    card.innerHTML = htmlContent;
+                    container.appendChild(card);
+                });
+            })
+            .catch(error => {
+                console.error('加载漫画数据失败:', error);
+                document.getElementById('manga-list').innerHTML = '<p>无法加载漫画目录，请检查 data.json 格式是否正确。</p>';
+            });
+    </script>
+
+</body>
+</html>
