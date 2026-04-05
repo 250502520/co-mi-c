@@ -1,0 +1,17 @@
+[
+  {
+    "title": "孤独摇滚",
+    "description": "鸟山明经典之作",
+    "volumes": [
+      { "name": "第一卷", "url": "comics/bochi_the_rock/孤独摇滚!- (1).pdf" },
+      { "name": "第二卷", "url": "comics/bochi_the_rock/孤独摇滚!- (2).pdf" }
+    ]
+  },
+  {
+    "title": "进击的巨人",
+    "description": "艾伦的复仇之旅",
+    "volumes": [
+      { "name": "第01卷", "url": "comics/Titan/vol1.pdf" }
+    ]
+  }
+]
